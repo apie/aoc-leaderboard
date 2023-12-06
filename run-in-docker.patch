@@ -1,0 +1,46 @@
+--- index.php	2023-12-05 14:55:00.729071500 +0100
++++ index.php	2023-12-06 08:37:36.118515180 +0100
+@@ -4,13 +4,10 @@
+ # load options/variables
+ #
+ 
+-if ($_SERVER['HTTP_HOST'] == '192.168.1.2') {
+-    $cookiefile = "/home/caspar/.config/adventofcode-cookie.txt"; // must look like: "session=f0oBaRbaz"
+-    $max_age = 1000 * 60; // max cache age
+-} else {
+-    $cookiefile = dirname($_SERVER['DOCUMENT_ROOT'],2)."/storage/adventofcode-cookie.txt"; // must look like: "session=f0oBaRbaz"
+-    $max_age = 10 * 60; // max cache age
+-}
++date_default_timezone_set('Europe/Amsterdam');
++$cookiefile = "/tmp/cookie.txt"; // must look like: "session=f0oBaRbaz"
++$max_age = 10 * 60; // max cache age
++
+ 
+ if(isset($_GET['id'])) {
+     $board = intval($_GET['id']);
+@@ -34,7 +31,7 @@
+                    1616236 => "https://github.com/cwverhey/adventofcode/tree/main/$year",
+                    1838848 => "https://github.com/leonschenk/codeofadvent/tree/main/$year");
+ 
+-$cachefile = "cache/$board-$year.json";
++$cachefile = "/tmp/$board-$year.json";
+ 
+ $years = range(date('Y')-1, 2015, -1); // first AoC edition was 2015
+ if(date('m') == '12') array_unshift($years, intval(date('Y'))); // add current year if month ≥ 12
+@@ -198,6 +195,9 @@
+ <div class='mtime'>
+ 
+     year: <form action='' class='yearform'>
++    <? if(isset($_GET['id'])) { ?>
++        <input type="hidden" name="id" value="<? print($board) ?>" />
++    <? } ?>
+     <select name="year" id="year" onchange="this.form.submit()">
+     <?php
+     foreach($years as $y) {
+@@ -263,4 +263,4 @@
+ 
+ ?>
+ </body>
+-</html>
+\ Geen regeleindeteken (LF) aan einde van bestand
++</html>
