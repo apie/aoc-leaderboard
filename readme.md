@@ -8,7 +8,7 @@
 
 
         location /aoc {
-            return 200 'kies <a href="/aoc/scintilla">/scintilla</a> of <a href="/aoc/dacom">/dacom</a>';
+            return 200 '<meta name="viewport" content="width=device-width, initial-scale=1.0">Kies <a href="/aoc/scintilla">/scintilla</a> of <a href="/aoc/dacom">/dacom</a>';
             add_header Content-Type text/html;
         }
         location /aoc/scintilla {
